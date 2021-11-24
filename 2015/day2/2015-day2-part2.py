@@ -33,20 +33,27 @@ if DEBUG == True:
     print(presents2[2])
 
 grandTotal = 0
+ribbonGrandTotal = 0
 
 # go through the list of presents and calculate the total area of wrapping paper for each
 for present in presents2:
     # print(present)
     # calculate the side areas
-    sides = [present["l"]*present["w"], present["w"] * present["h"], present["h"] * present["l"]]
+    sideAreas = [present["l"] * present["w"], present["w"] * present["h"], present["h"] * present["l"]]
+    perimeters = [2 * (present["l"] + present["w"]), 2 * (present["w"] + present["h"]), 2* (present["h"] + present["l"])]
     # add up the sides
-    area = 2 * sides[0] + 2 * sides[1] + 2 * sides[2]
-    totalNeeded = area  + min(sides)
+    area = 2 * sideAreas[0] + 2 * sideAreas[1] + 2 * sideAreas[2]
+    totalNeeded = area  + min(sideAreas)
+    # ribbon needed is the perimeter of the smallest side plus the volume of the present
+    ribbonNeeded = min(perimeters) + (present["l"] * present["w"] * present["h"])
     present["totalNeeded"] = totalNeeded
+    present["ribbonNeeded"] = ribbonNeeded
     # print(totalNeeded)
     grandTotal += totalNeeded
+    ribbonGrandTotal += ribbonNeeded
 
 if DEBUG == True:
     print(presents2[2])
 
-print(grandTotal)
+print("Tottal wrapping paper needed in square feet:", grandTotal)
+print("Total ribbon needed in feet:", ribbonGrandTotal)
