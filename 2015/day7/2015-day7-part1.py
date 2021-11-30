@@ -1,6 +1,7 @@
 # Advent of Code - 2015 - Day 7
 
 # --- Day 7: Some Assembly Required ---
+
 # This year, Santa brought little Bobby Tables a set of wires and bitwise logic gates! Unfortunately, little Bobby is a little under the recommended age range, and he needs help assembling the circuit.
 
 # Each wire has an identifier (some lowercase letters) and can carry a 16-bit signal (a number from 0 to 65535). A signal is provided to each wire by a gate, another wire, or some specific value. Each wire can only get a signal from one source, but can provide its signal to multiple destinations. A gate provides no signal until all of its inputs have a signal.
@@ -13,6 +14,7 @@
 # x AND y -> z means that the bitwise AND of wire x and wire y is provided to wire z.
 # p LSHIFT 2 -> q means that the value from wire p is left-shifted by 2 and then provided to wire q.
 # NOT e -> f means that the bitwise complement of the value from wire e is provided to wire f.
+
 # Other possible gates include OR (bitwise OR) and RSHIFT (right-shift). If, for some reason, you'd like to emulate the circuit instead, almost all programming languages (for example, C, JavaScript, or Python) provide operators for these gates.
 
 # For example, here is a simple circuit:
@@ -25,6 +27,7 @@
 # y RSHIFT 2 -> g
 # NOT x -> h
 # NOT y -> i
+
 # After it is run, these are the signals on the wires:
 
 # d: 72
@@ -35,6 +38,7 @@
 # i: 65079
 # x: 123
 # y: 456
+
 # In little Bobby's kit's instructions booklet (provided as your puzzle input), what signal is ultimately provided to wire a?
 
 import time, math
@@ -43,27 +47,29 @@ def createCircuitDict():
     global circuitStrings
     global circuitDict
 
+    # this function takes the string as input (circuitStrings) and converts them (parses them) into a dictionary (circuitDict)
+
     for circuitLine in circuitStrings:
+
+        # the string "->" is the delimeter (sp?) between the left side (input) and the wire name (dictionary key)
         leftSide = circuitLine[0 : circuitLine.find("->") - 1]
         # if debug:
         #     print("leftSide:", leftSide)
         rightSide = circuitLine[circuitLine.find("->") + 3 : ]
         # if debug:
         #     print("rightSide:", rightSide)
-        # put a test in here that checks for duplicate lines with the same input
-        # could also put a test in here that checks that all the input lines are define / calculated as each new line is added
-        # eliminates the need for recursion?
+
+        # we set the outputValue to nan (not a number) as a way of checking if we have successfully evaluated the wires inputs or not: default = nan, not evaluated
+        outputValue = math.nan
 
         # check for numeric input string -- this is easy, just make it the output
-        # should this be in the next function though?
-        outputValue = math.nan
         if leftSide.isnumeric():
             leftSide = int(leftSide)
             outputValue = leftSide # simple -- the input to this wire is also it's output
         
-        if debug:
-            if circuitDict.get(rightSide) != None:
-                print("Weird... dictionary key ", rightSide, "already exists. This shouldn't happen.")
+        # check for duplicate wire names (dictionary keys) in the input string
+        if circuitDict.get(rightSide) != None:
+            print("Weird... dictionary key ", rightSide, "already exists. This shouldn't happen.")
         
         circuitDict[rightSide] = {"input" : leftSide, "output" : outputValue}
 
@@ -77,6 +83,7 @@ def evaluateInput(circuit, operator):
     inputWire2 = circuitDict[circuit]["input"][circuitDict[circuit]["input"].find(operator) + len(operator) + 1 : ]
     # if debug:
     #     print(circuit, "=", inputWire1, operator, inputWire2)
+
     # look up the output of the inputWire
     if inputWire1.isnumeric():
         input1 = int(inputWire1)
@@ -108,6 +115,8 @@ def evaluateInput(circuit, operator):
             print("Unknown operator", operator)
     
         # check for rollunder 0
+        # this occurs because we are using a signed integer for what should be an unsigned 16-bit integer
+        # TODO figure out if Python has an unsigned 16-bit integer type
         if circuitDict[circuit]["output"] < 0:
             # if debug:
             #     print("result under zero, fix it")
