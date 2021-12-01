@@ -93,6 +93,21 @@ unitTesting = False
 
 depths = []
 
+def readInput(inputTextFileName):
+    global depths
+
+    with open("2021/day1/"+inputTextFileName,"r") as inputString:
+        depths = inputString.readlines()
+
+    # remove newlines, convert to integers
+    for i in range(0, len(depths)):
+        depths[i] = depths[i].rstrip()
+        depths[i] = int(depths[i])
+
+    if debug:
+        print(depths)
+    
+
 def countDepthIncreases():
     global depths
 
@@ -121,26 +136,10 @@ def countDepthIncreases():
 
 if unitTesting:
     print("Unit Testing")
-    with open("2021/day1/unit-test-input.txt","r") as inputString:
-        depths = inputString.readlines()
-
-    # remove newlines, convert to integers
-    for i in range(0, len(depths)):
-        depths[i] = depths[i].rstrip()
-        depths[i] = int(depths[i])
-
-    if debug:
-        print(depths)
-    
+    readInput("unit-test-input.txt")
 else:
-    # read the input text file into a variable called presents
-    with open("2021/day1/input.txt","r") as inputString:
-        depths = inputString.readlines()
-
-    # remove newlines
-    for i in range(0, len(depths)):
-        depths[i] = depths[i].rstrip()
-        depths[i] = int(depths[i])
+    # read the input text file into a variable
+    readInput("input.txt")
 
 if unitTesting:
     testPass = False
