@@ -60,7 +60,7 @@
 
 # Using this new interpretation of the commands, calculate the horizontal position and depth you would have after following the planned course. What do you get if you multiply your final horizontal position by your final depth?
 
-import time, math
+import time, math, os
 
 startTime = time.time() # time in seconds (float)
 
@@ -77,6 +77,8 @@ commandsList = []
 def readInput(inputTextFileName):
     global commandsList
 
+    if debug:
+        print("pwd:", os.getcwd())
     with open("2021/day2/"+inputTextFileName,"r", encoding='utf-8') as file:
         commandsList = file.readlines()
 
