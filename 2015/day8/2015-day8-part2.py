@@ -21,13 +21,13 @@
 
 # For example, given the four strings above, the total number of characters of string code (2 + 5 + 10 + 6 = 23) minus the total number of characters in memory for string values (0 + 3 + 7 + 1 = 11) is 23 - 11 = 12.
 
-import time, math, sys
+import time, math, sys, re
 
 startTime = time.time() # time in seconds (float)
 
 debug = True
 timing = True
-unitTesting = True
+unitTesting = False
 
 stringsList = []
 
@@ -53,30 +53,26 @@ def processStrings():
 
         memoryCharacters += (len(eval(stringItem)))
 
-        encodedCharacters += (len(repr(stringItem))) + 2
+        # if debug:
+        #     print(stringItem,stringItem[1: -1],repr(stringItem),repr(stringItem[1 : -1]),len(stringItem),(len(eval(stringItem))),len(repr(stringItem))+4)
 
+        newString = stringItem
         if debug:
-            print(stringItem,stringItem[1: -1],repr(stringItem),repr(stringItem[1 : -1]),len(stringItem),(len(eval(stringItem))),len(repr(stringItem))+2)
+            print("newString before replace:",newString)
+        if debug:
+            print(re.findall(r'\\x[0-9a-fA-F]+', newString))
+        newString = newString[0]+newString[1:-1].replace(r'\\',r'\\\\')+newString[-1]
+        newString = newString[0]+newString[1:-1].replace(r'\"',r'\\\"')+newString[-1]
+        if debug:
+            print(re.findall(r'\\x[0-9a-fA-F]+', newString))
+        # newString = newString.replace(r'\x',r'\\x')
+        # newString = re.sub(r'\\x[0-9a-fA-F]+', r'\\\x0f', newString)
+        newString = newString[0]+r'\"'+newString[1:-1]+r'\"'+newString[-1]
+        if debug:
+            print("newString after replace:",newString)
 
-        if "\\" in stringItem[1 : -1]:
-            if debug:
-                print("Found a double backslash")
-            pass
-        if "\"" in stringItem[1 : -1]:
-            if debug:
-                print("Found a quote literal")
-            pass
+        encodedCharacters += len(newString)
 
-        # for character in stringItem[1 : -1]:
-        #     if character == "\\":
-        #         if debug:
-        #             print("Found a backslash")
-        #         pass
-        #     elif character == "\"":
-        #         if debug:
-        #             print("Found a quote")
-        #         pass
-    
     if debug:
         print("codeCharacters:",codeCharacters,"memoryCharacters:",memoryCharacters, "encodedCharacters:", encodedCharacters)
     
