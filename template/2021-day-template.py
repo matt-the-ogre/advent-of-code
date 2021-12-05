@@ -5,22 +5,9 @@
 
 import time, math, logging
 
-startTime = time.perf_counter() # time in seconds (float)
-
-level = logging.DEBUG
-# level = logging.INFO
-# level = logging.ERROR
-fmt = '[%(levelname)s] %(asctime)s - %(message)s'
-logging.basicConfig(level=level, format=fmt)
-timing = False
-unitTesting = False
-inputList = []
-
-# day-specific variables go here
-# ---
 
 def readInput(inputTextFileName):
-    global inputList
+    # global inputList
 
     logging.debug("Don't forget to update your input file path")
     with open("template/"+inputTextFileName,"r", encoding='utf-8') as file:
@@ -30,7 +17,7 @@ def readInput(inputTextFileName):
     for i in range(0, len(inputList)):
         inputList[i] = inputList[i].rstrip()
 
-    return()
+    return(inputList)
 
 def processInput(inputList):
 
@@ -38,35 +25,54 @@ def processInput(inputList):
     global inputStringLength
     # ---
     for listItem in inputList:
-        logging.debug("listItem:",listItem)
+        logging.debug(f"listItem: {listItem}")
         pass
 
     return()
 
-if unitTesting:
-    logging.info("Unit Testing")
-    inputList = readInput("unit-test-input.txt")
-else:
-    # read the input text file into a variable
-    inputList = readInput("input.txt")
+def main():
+    startTime = time.perf_counter() # time in seconds (float)
 
-processInput(inputList)
+    level = logging.DEBUG
+    # level = logging.INFO
+    # level = logging.ERROR
+    fmt = '[%(levelname)s] %(asctime)s - %(message)s'
+    logging.basicConfig(level=level, format=fmt)
+    timing = False
+    unitTesting = False
+    inputList = []
 
-if unitTesting:
-    testPass = False
+    # day-specific variables go here
+    # ---
+    
+    if unitTesting:
+        logging.info("Unit Testing")
+        inputList = readInput("unit-test-input.txt")
+    else:
+        # read the input text file into a variable
+        inputList = readInput("input.txt")
 
-    # write the assignment of a boolean here that will determine if the unit test passed or not
-    testPass = (False)
+    processInput(inputList)
 
-    print("testPass:", testPass)
-else:
-    # logging.debug the answer here
-    print(math.nan)
+    if unitTesting:
+        testPass = False
 
-# this answer for my input is 
+        # write the assignment of a boolean here that will determine if the unit test passed or not
+        logging.debug("Don't forget to update your unit test here.")
+        testPass = (False)
 
-endTime = time.perf_counter() # time in seconds (float)
+        print("testPass:", testPass)
+    else:
+        # print the answer here
+        logging.debug("Don't forget to update your print statement of the output here.")
+        print(math.nan)
 
-if timing:
-    logging.debug(f"Execution took {endTime - startTime} seconds.")
+    # this answer for my input is 
 
+    endTime = time.perf_counter() # time in seconds (float)
+
+    if timing:
+        logging.debug(f"Execution took {endTime - startTime} seconds.")
+
+if __name__ == '__main__':
+    main()
