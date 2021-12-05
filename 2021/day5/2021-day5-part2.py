@@ -42,10 +42,8 @@ def processInput(inputList):
         if secondTuple[1] > maxY:
             maxY = secondTuple[1]
 
-    # logging.debug(f"{tupleList}")
-    # tupleList.sort()
-    # logging.debug(f"{tupleList}")
     # logging.debug(f"maxX: {maxX} maxY: {maxY}")
+
     if len(inputList) != len(tupleList):
         logging.error(f"tupleList is different length than inputList: {len(tupleList)} vs. {len(inputList)}") 
 
@@ -57,32 +55,23 @@ def processInput(inputList):
         logging.debug(f"pairItem: {pairItem}")
         point1 = pairItem[0]
         point2 = pairItem[1]
-        if (point1[0] < point2[0]):
+        if (point1[0] <= point2[0]):
             xStep = 1
             point1XOffset = 0
             point2XOffset = 1
-        elif (point1[0] > point2[0]):
+        else:
             xStep = -1
             point1XOffset = 0
             point2XOffset = -1
-        else: ## equal
-            xStep = 1
-            point1XOffset = 0
-            point2XOffset = 1
 
-        if (point1[1] < point2[1]):
+        if (point1[1] <= point2[1]):
             yStep = 1
             point1YOffset = 0
             point2YOffset = 1
-        elif (point1[1] > point2[1]):
+        else:
             yStep = -1
             point1YOffset = 0
             point2YOffset = -1
-        else: # equal
-            yStep = 1
-            point1YOffset = 0
-            point2YOffset = 1
-
 
         if (pairItem[0][0] == pairItem[1][0]) or (pairItem[0][1] == pairItem[1][1]):
             # horizontal or vertical line
@@ -91,29 +80,21 @@ def processInput(inputList):
                     gridArray[x,y] += 1
         else:
             # diagonal line
-            # logging.debug(f"x from {point1[0] + point1XOffset} to {point2[0] + point2XOffset} by {xStep}, y from {point1[1] + point1YOffset} to {point2[1] + point2YOffset} by {yStep} ")
-            # for x,y in zip(range(lowXRange,highXRange+1),range(lowYRange,highYRange+1)):
-            # xRange = range(point1[0] + point1XOffset, point2[0] + point2XOffset, xStep)
-            # yRange = range(point1[1] + point1YOffset, point2[1] + point2YOffset, yStep)
-            # logging.debug(f"xRange: {xRange} yRange: {yRange}")
-            # zipRange = zip(range(point1[0] + point1XOffset, point2[0] + point2XOffset, xStep), range(point1[1] + point1YOffset, point2[1] + point2YOffset, yStep))
-            # logging.debug(f"zipRange: {list(zipRange)}")
-
             for x,y in zip(range(point1[0] + point1XOffset, point2[0] + point2XOffset, xStep), range(point1[1] + point1YOffset, point2[1] + point2YOffset, yStep)):
                 logging.debug(f"({x},{y})")
                 gridArray[x,y] += 1
             
     logging.debug(f"\n{gridArray}")
 
-    pointsOverlap = len(gridArray[gridArray > 1])
+    pointsOverlap = len(gridArray[gridArray > 1]) # this is like magic; so much more interesting than looping through the array and checking every element
     logging.debug(f"points where two lines overlap = {pointsOverlap}")
     return(pointsOverlap)
 
 def main():
     startTime = time.perf_counter() # time in seconds (float)
 
+    # level = logging.DEBUG
     level = logging.INFO
-    # level = logging.INFO
     # level = logging.ERROR
     fmt = '[%(levelname)s] %(asctime)s - %(message)s'
     logging.basicConfig(level=level, format=fmt)
