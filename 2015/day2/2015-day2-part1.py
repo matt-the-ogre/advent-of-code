@@ -29,7 +29,7 @@ for present in presents:
     # print(as_list)
 
 # print the third present just as a debug check
-if DEBUG == True:
+if DEBUG is True:
     print(presents2[2])
 
 grandTotal = 0
@@ -46,7 +46,7 @@ for present in presents2:
     # print(totalNeeded)
     grandTotal += totalNeeded
 
-if DEBUG == True:
+if DEBUG is True:
     print(presents2[2])
 
 print(grandTotal)

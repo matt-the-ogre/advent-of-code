@@ -127,7 +127,7 @@ def doConnection():
     unfinishedCount = len(circuitDict)
     lowCount = unfinishedCount
 
-    while unfinishedCount != 0:
+    while unfinishedCount:
         unfinishedCount = len(circuitDict)
         if debug:
             print("lowCount", lowCount)
@@ -179,7 +179,7 @@ def doConnection():
                 # if debug:
                 #     print("circuit",circuit,"is done with output ", circuitDict[circuit]["output"], "Break.")
                 pass
-            if math.isnan(circuitDict[circuit]["output"]) == False:
+            if math.isnan(circuitDict[circuit]["output"]) is False:
                 # this output is calculated, decrement the unfinished counter
                 unfinishedCount -= 1
                 if unfinishedCount < lowCount:
@@ -187,7 +187,7 @@ def doConnection():
                 # if debug:
                 #     print("unfinishedCount", unfinishedCount)
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
 timing = True
@@ -239,7 +239,7 @@ if unitTesting:
         if debug:
             print("wire", wire, "test:", testPassWire, "calc:", circuitWire)
         testPass = testPassWire == circuitWire
-        if testPass == False:
+        if testPass is False:
             break
     print("testPass:", testPass)
 else:
@@ -248,7 +248,7 @@ else:
 # this answer for my input is 46065 (part 1), 14134 (part 2)
 
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
     print("Execution took ", endTime - startTime, " seconds.")

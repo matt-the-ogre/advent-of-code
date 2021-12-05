@@ -62,11 +62,15 @@
 
 # To guarantee victory against the giant squid, figure out which board will win first. What will your final score be if you choose that board?
 
-import time, math
+import time, math, logging
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
+level = logging.DEBUG
+# level = logging.ERROR
+fmt = '[%(levelname)s] %(asctime)s - %(message)s'
+logging.basicConfig(level=level, format=fmt)
 timing = True
 unitTesting = False
 inputList = []
@@ -89,8 +93,7 @@ class Board:
                 # be sure to convert to integer because they might be coming in as strings
                 boardLine.append({"number": int(item), "marked": False})
             self.board.append(boardLine)
-        # if debug:
-        #     print(self.board)
+        logging.debug(self.board)
 
     def __str__(self):
         returnString = ""
@@ -134,37 +137,36 @@ class Board:
         self.score = 0
         for line in self.board:
             for item in line:
-                if item["marked"] == False:
+                if item["marked"] is False:
                     # add it to the score
                     self.score += item["number"]
         self.score *= numberCalled
         return(self.score)
 
 # I'm thinking we have a 2d board as a list of lists of dictionaries
-# if debug:
-#     testBoardList = [
-#         [22, 13, 17, 11,  0],
-#         [8,  2, 23,  4, 24],
-#         [21,  9, 14, 16,  7],
-#         [6, 10,  3, 18,  5],
-#         [1, 12, 20, 15, 19]
-#         ]
+# testBoardList = [
+#     [22, 13, 17, 11,  0],
+#     [8,  2, 23,  4, 24],
+#     [21,  9, 14, 16,  7],
+#     [6, 10,  3, 18,  5],
+#     [1, 12, 20, 15, 19]
+#     ]
 
-#     testBoard = Board(testBoardList)
+# testBoard = Board(testBoardList)
 
-#     print(testBoard)
-#     print(testBoard.checkWinner())
+# logging.debug(testBoard)
+# logging.debug(testBoard.checkWinner())
 
-#     testBoard.markNumber(999)
-#     testBoard.markNumber(8)
-#     testBoard.markNumber(2)
-#     testBoard.markNumber(23)
-#     testBoard.markNumber(4)
-#     testBoard.markNumber(24)
+# testBoard.markNumber(999)
+# testBoard.markNumber(8)
+# testBoard.markNumber(2)
+# testBoard.markNumber(23)
+# testBoard.markNumber(4)
+# testBoard.markNumber(24)
 
-#     print(testBoard)
-#     print(testBoard.checkWinner())
-#     print(testBoard.boardScore(24))
+# logging.debug(testBoard)
+# logging.debug(testBoard.checkWinner())
+# logging.debug(testBoard.boardScore(24))
 
 # ---
 
@@ -205,15 +207,14 @@ def processInput():
         for board in bingoBoardsList:
             board.markNumber(numberDrawn)
             if board.checkWinner():
-                if debug:
-                    print("Winning numberDrawn:", numberDrawn)
-                    print("Winning board:", board)
+                logging.debug("Winning numberDrawn:", numberDrawn)
+                logging.debug("Winning board:", board)
                 return(board.boardScore(numberDrawn))
 
     return(math.nan)
 
 if unitTesting:
-    print("Unit Testing")
+    logging.info("Unit Testing")
     readInput("unit-test-input.txt")
 else:
     # read the input text file into a variable
@@ -221,8 +222,7 @@ else:
 
 winningBoardScore = processInput()
 
-if debug:
-    print("winningBoardScore:", winningBoardScore)
+logging.debug("winningBoardScore:", winningBoardScore)
 
 if unitTesting:
     testPass = False
@@ -232,13 +232,13 @@ if unitTesting:
 
     print("testPass:", testPass)
 else:
-    # print the answer here
+    # logging.debug the answer here
     print(winningBoardScore)
 
 # this answer for my input is 29440
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
-    print("Execution took ", endTime - startTime, " seconds.")
+    logging.info(f"Execution took {endTime - startTime} seconds.")
 

@@ -39,7 +39,7 @@
 
 import time, math
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
 timing = False
@@ -132,7 +132,7 @@ else:
 
 # this answer for my input is 3969000
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
     print("Execution took ", endTime - startTime, " seconds.")

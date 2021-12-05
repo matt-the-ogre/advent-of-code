@@ -1,13 +1,17 @@
-# Advent of Code - 2021 - Day 4
+# Advent of Code - 2021 - Day X
 
-# https://adventofcode.com/2021/day/4
+# https://adventofcode.com/2021/day/X
 
 
-import time, math
+import time, math, logging
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
-debug = False
+level = logging.DEBUG
+# level = logging.INFO
+# level = logging.ERROR
+fmt = '[%(levelname)s] %(asctime)s - %(message)s'
+logging.basicConfig(level=level, format=fmt)
 timing = False
 unitTesting = False
 inputList = []
@@ -18,7 +22,8 @@ inputList = []
 def readInput(inputTextFileName):
     global inputList
 
-    with open("2021/day4/"+inputTextFileName,"r", encoding='utf-8') as file:
+    logging.debug("Don't forget to update your input file path")
+    with open("template/"+inputTextFileName,"r", encoding='utf-8') as file:
         inputList = file.readlines()
 
     # remove newlines
@@ -33,14 +38,13 @@ def processInput(inputList):
     global inputStringLength
     # ---
     for listItem in inputList:
-        if debug:
-            print("listItem:",listItem)
+        logging.debug("listItem:",listItem)
         pass
 
     return()
 
 if unitTesting:
-    print("Unit Testing")
+    logging.info("Unit Testing")
     inputList = readInput("unit-test-input.txt")
 else:
     # read the input text file into a variable
@@ -56,13 +60,13 @@ if unitTesting:
 
     print("testPass:", testPass)
 else:
-    # print the answer here
+    # logging.debug the answer here
     print(math.nan)
 
 # this answer for my input is 
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
-    print("Execution took ", endTime - startTime, " seconds.")
+    logging.debug(f"Execution took {endTime - startTime} seconds.")
 

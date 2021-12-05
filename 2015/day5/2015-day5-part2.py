@@ -131,7 +131,7 @@ def niceString(stringToTest):
             return True 
     return False # string is naughty
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
 unitTesting = False
@@ -142,9 +142,9 @@ if unitTesting:
     testString = "xyxy"
     print("Test ", testString, "should be Nice. ", niceString(testString))
     testString = "aabcdefgaa"
-    print("Test ", testString, "should be Naughty. ", niceString(testString) == False)
+    print("Test ", testString, "should be Naughty. ", niceString(testString) is False)
     testString = "aaa"
-    print("Test ", testString, "should be Naughty. ", niceString(testString) == False)
+    print("Test ", testString, "should be Naughty. ", niceString(testString) is False)
     testString = "qjhvhtzxzqqjkmpb"
     print("Test ", testString, "should be Nice. ", niceString(testString))
     testString = "xxyxx"
@@ -152,14 +152,14 @@ if unitTesting:
     testString = "aaaa"
     print("Test ", testString, "should be Nice. ", niceString(testString))
     testString = "uurcxstgmygtbstg"
-    print("Test ", testString, "should be Naughty. ", niceString(testString) == False)
+    print("Test ", testString, "should be Naughty. ", niceString(testString) is False)
     testString = "ieodomkazucvgmuy"
-    print("Test ", testString, "should be Naughty. ", niceString(testString) == False)
+    print("Test ", testString, "should be Naughty. ", niceString(testString) is False)
 
 
 niceStringsCount = 0
 
-if unitTesting == False:
+if unitTesting is False:
     # read the input text file into a variable called presents
     with open("2015/day5/input.txt","r") as inputString:
         santaStrings = inputString.readlines()
@@ -177,7 +177,7 @@ if unitTesting == False:
 
 # 69 is the right answer for my input text
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if debug:
     print("Execution took ", endTime - startTime, " seconds.")

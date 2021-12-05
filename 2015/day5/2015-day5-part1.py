@@ -71,7 +71,7 @@ def niceString(stringToTest):
         #     print("String ", stringToTest," is naughty because of no double letters.")
         return False
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = True
 
@@ -97,7 +97,7 @@ if debug:
 
 print(niceStringsCount)
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if debug:
     print("Execution took ", endTime - startTime, " seconds.")

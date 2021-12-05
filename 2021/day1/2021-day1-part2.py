@@ -85,7 +85,7 @@
 
 import time, math
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
 timing = False
@@ -123,7 +123,7 @@ def countDepthIncreases():
         depthSum = depths[i-2] + depths[i-1] + depths[i]
         if debug:
             print("depthSum", depthSum)
-        if math.isnan(lastSum) == False:
+        if math.isnan(lastSum) is False:
             if debug:
                 print("lastSum:", lastSum)
             if depthSum > lastSum:
@@ -154,7 +154,7 @@ else:
 
 # this answer for my input is 1103
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
     print("Execution took ", endTime - startTime, " seconds.")

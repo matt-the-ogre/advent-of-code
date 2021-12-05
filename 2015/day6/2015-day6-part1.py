@@ -87,7 +87,7 @@ def makeGrid(width,height):
     for x in range (width):
         grid[x] = [False] * height
 
-startTime = time.time() # time in seconds (float)
+startTime = time.perf_counter() # time in seconds (float)
 
 debug = False
 timing = True
@@ -134,7 +134,7 @@ print(litLightsCount)
 
 # the correct answer for my input is 543903
 
-endTime = time.time() # time in seconds (float)
+endTime = time.perf_counter() # time in seconds (float)
 
 if timing:
     print("Execution took ", endTime - startTime, " seconds.")
