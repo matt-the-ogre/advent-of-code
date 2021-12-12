@@ -76,8 +76,8 @@ def processInput(inputList):
 def main():
     startTime = time.perf_counter() # time in seconds (float)
 
-    level = logging.DEBUG
-    # level = logging.INFO
+    # level = logging.DEBUG
+    level = logging.INFO
     # level = logging.ERROR
     fmt = '[%(levelname)s] %(asctime)s - %(message)s'
     logging.basicConfig(level=level, format=fmt)
@@ -86,7 +86,7 @@ def main():
     filepath = os.path.dirname(__file__)
 
     timing = True
-    unitTesting = True
+    unitTesting = False
     inputList = []
 
     # day-specific variables go here

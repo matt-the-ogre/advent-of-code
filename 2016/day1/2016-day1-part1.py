@@ -1,34 +1,55 @@
-# Advent of Code - 2021 - Day X
+# Advent of Code - 2016 - Day 1
 
-# https://adventofcode.com/2021/day/X
+# https://adventofcode.com/2016/day/1
 
 
-import time, math, logging ,os
+import time, math, logging, os
 
 
 def readInput(inputTextFileName):
     # global inputList
 
     logging.debug("Don't forget to update your input file path")
-    with open("template/"+inputTextFileName,"r", encoding='utf-8') as file:
+    with open(inputTextFileName,"r", encoding='utf-8') as file:
         inputList = file.readlines()
 
     # remove newlines
-    for i in range(0, len(inputList)):
-        inputList[i] = inputList[i].rstrip()
+    inputList = [listItem.rstrip() for listItem in inputList]
+
+    inputList = [listItem.replace(" ", "") for listItem in inputList]
+
+    inputList = [listItem.split(",") for listItem in inputList]
+
 
     return(inputList)
 
 def processInput(inputList):
 
+    
     # don't forget to reference global variables here if needed
-    global inputStringLength
     # ---
+    startX = 0
+    startY = 0
+    startDirection = "N"
+    directionDict = {"R": {"N": "E", "E": "S", "S": "W", "W" : "N"}, "L": {"N": "W", "W": "S", "S": "E", "E": "N"}}
+    currentDirection = startDirection
+
     for listItem in inputList:
         logging.debug(f"listItem: {listItem}")
+        for step in listItem:
+            logging.debug(f"step: {step}")
+            turn =  4444
+
+            
+            logging.debug(f"turn: {turn}")
+            
+            newDirection = directionDict[turn][currentDirection]
+            logging.debug(f"newDirection: {newDirection}")
         pass
 
-    return()
+    blocksAway = 0
+
+    return(blocksAway)
 
 def main():
     startTime = time.perf_counter() # time in seconds (float)
@@ -56,14 +77,14 @@ def main():
         # read the input text file into a variable
         inputList = readInput(f"{filepath}/input.txt")
 
-    processInput(inputList)
+    blocksAway = processInput(inputList)
 
     if unitTesting:
         testPass = False
 
         # write the assignment of a boolean here that will determine if the unit test passed or not
         logging.debug("Don't forget to update your unit test here.")
-        testPass = (False)
+        testPass = (blocksAway == 12)
 
         print("testPass:", testPass)
     else:
