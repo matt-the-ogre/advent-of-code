@@ -1,9 +1,10 @@
-# Advent of Code - 2021 - Day 6
+# Advent of Code - 2021 - Day X
 
-# https://adventofcode.com/2021/day/6
+# https://adventofcode.com/2021/day/X
 
 
 import time, math, logging ,os
+
 
 def readInput(inputTextFileName):
     # global inputList
@@ -34,15 +35,31 @@ def processInput(inputList):
     # don't forget to reference global variables here if needed
     # ---
 
-    newList = [0,0,0,0,0,0,0,0,0]
+    # make a new list that is going to count the number of crabs at each position
 
-    newList = inputList[1:] # newList elements 0 through 8 are just from the inputList elements 1 through 9 (shift a day closer to reproducing)
-    newList[6] += inputList[0] # same fish restarts its reproductive timer, add to the fish that just moved to day 7
-    newList.append(inputList[0]) # new fish starts with 8 days to reproduce
+    logging.debug(f"inputList maximum value: {max(inputList)}")
 
-    assert len(newList) == 9, "length of newList is not 9"
+    # newList = range(0,max(inputList)+1)
+    crabCountList = [0] * (max(inputList)+1)
 
-    return(newList)
+    for listItem in inputList:
+        logging.debug(f"listItem: {listItem}")
+        crabCountList[listItem] += 1
+
+    logging.debug(f"newList: {crabCountList}")
+
+    # figure out the fuel cost for each position, i.e. fuel cost to move all crabs to that position
+    fuelCostList = [0] * len(crabCountList)
+
+    for fuelIndex, item in enumerate(fuelCostList):
+        fuelCost = 0
+        for crabIndex, crabCount in enumerate(crabCountList):
+            fuelCost += crabCount * abs(crabIndex - fuelIndex)
+        fuelCostList[fuelIndex] += fuelCost
+    
+    logging.debug(f"fuelCostList: {fuelCostList}")
+
+    return(fuelCostList)
 
 def main():
     startTime = time.perf_counter() # time in seconds (float)
@@ -61,7 +78,6 @@ def main():
     inputList = []
 
     # day-specific variables go here
-    numberOfDays = 256
     # ---
     
     if unitTesting:
@@ -71,30 +87,16 @@ def main():
         # read the input text file into a variable
         inputList = readInput(f"{filepath}/input.txt")
 
-    # refactor the list so that the index of the list contains the number of fish at that day of their lives
-    fishList = [0,0,0,0,0,0,0,0,0]
+    fuelCosts = processInput(inputList)
 
-    for item in inputList:
-        fishList[item] += 1
-    
-    logging.debug(f"day: {numberOfDays} fishList: {fishList} sum(fishList) {sum(fishList)}")
-
-    while numberOfDays > 0:
-        fishList = processInput(fishList)
-        numberOfDays -= 1
-        logging.debug(f"day: {numberOfDays} fishList: {fishList} sum(fishList) {sum(fishList)}")
-
-
-    answer = sum(fishList)
-
-    logging.debug(f"answer: {answer}")
+    answer = min(fuelCosts)
 
     if unitTesting:
         testPass = False
 
         # write the assignment of a boolean here that will determine if the unit test passed or not
         # logging.debug("Don't forget to update your unit test here.")
-        testPass = (answer == 26984457539)
+        testPass = (answer == 37)
 
         print("testPass:", testPass)
     else:
@@ -102,7 +104,7 @@ def main():
         # logging.debug("Don't forget to update your print statement of the output here.")
         print(answer)
 
-    # this answer for my input is 
+    # this answer for my input is 333755
 
     endTime = time.perf_counter() # time in seconds (float)
 

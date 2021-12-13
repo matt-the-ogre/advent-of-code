@@ -10,7 +10,7 @@ def readInput(inputTextFileName):
     # global inputList
 
     logging.debug("Don't forget to update your input file path")
-    with open("template/"+inputTextFileName,"r", encoding='utf-8') as file:
+    with open(inputTextFileName,"r", encoding='utf-8') as file:
         inputList = file.readlines()
 
     # remove newlines
@@ -76,7 +76,7 @@ def main():
     endTime = time.perf_counter() # time in seconds (float)
 
     if timing:
-        logging.debug(f"Execution took {endTime - startTime} seconds.")
+        logging.info(f"Execution took {endTime - startTime} seconds.")
 
 if __name__ == '__main__':
     main()
