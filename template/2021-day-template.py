@@ -9,7 +9,6 @@ import time, math, logging ,os
 def readInput(inputTextFileName):
     # global inputList
 
-    logging.debug("Don't forget to update your input file path")
     with open(inputTextFileName,"r", encoding='utf-8') as file:
         inputList = file.readlines()
 
@@ -22,8 +21,8 @@ def readInput(inputTextFileName):
 def processInput(inputList):
 
     # don't forget to reference global variables here if needed
-    global inputStringLength
     # ---
+    
     for listItem in inputList:
         logging.debug(f"listItem: {listItem}")
         pass
