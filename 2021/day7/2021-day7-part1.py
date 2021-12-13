@@ -1,6 +1,6 @@
-# Advent of Code - 2021 - Day X
+# Advent of Code - 2021 - Day 7
 
-# https://adventofcode.com/2021/day/X
+# https://adventofcode.com/2021/day/7
 
 
 import time, math, logging ,os
@@ -21,9 +21,7 @@ def readInput(inputTextFileName):
 
     logging.debug(f"inputList: {inputList}")
 
-    # for index, item in enumerate(inputList):
-    #     inputList[index] = int(item)
-    # could use:
+    # convert strings to integers
     inputList = list(map(int,inputList))
 
     logging.debug(f"inputList: {inputList}")
@@ -39,7 +37,6 @@ def processInput(inputList):
 
     logging.debug(f"inputList maximum value: {max(inputList)}")
 
-    # newList = range(0,max(inputList)+1)
     crabCountList = [0] * (max(inputList)+1)
 
     for listItem in inputList:
