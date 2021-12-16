@@ -5,6 +5,7 @@
 
 import time, math, logging ,os
 from types import prepare_class
+from typing import Counter
 
 
 def readInput(inputTextFileName):
@@ -27,7 +28,6 @@ def readInput(inputTextFileName):
         inputList[lineIndex][1] = [''.join(sorted(listItem)) for listItem in inputList[lineIndex][1]]
         logging.debug(f"lineList: {lineList}")
     
-
     return(inputList)
 
 def check_text(text, name):
@@ -36,6 +36,52 @@ def check_text(text, name):
         return char_index == sorted(char_index)
     else:
         return False
+
+def print_digits(numberInt):
+
+    #  aaaa    ....    aaaa    aaaa    ....
+    # b    c  .    c  .    c  .    c  b    c
+    # b    c  .    c  .    c  .    c  b    c
+    #  ....    ....    dddd    dddd    dddd
+    # e    f  .    f  e    .  .    f  .    f
+    # e    f  .    f  e    .  .    f  .    f
+    #  gggg    ....    gggg    gggg    ....
+
+    #   5:      6:      7:      8:      9:
+    #  aaaa    aaaa    aaaa    aaaa    aaaa
+    # b    .  b    .  .    c  b    c  b    c
+    # b    .  b    .  .    c  b    c  b    c
+    #  dddd    dddd    ....    dddd    dddd
+    # .    f  e    f  .    f  e    f  .    f
+    # .    f  e    f  .    f  e    f  .    f
+    #  gggg    gggg    ....    gggg    gggg
+
+    digitsAsListsOfStrings = {0: [" aaaa ","b    c","b    c"," .... ","e    f","e    f"," gggg "],
+        1: [" .... ",".    c",".    c"," .... ",".    f",".    f"," .... "], 
+        2: [" aaaa ",".    c",".    c"," dddd ","e    .","e    ."," gggg "], 
+        3: [" aaaa ",".    c",".    c"," dddd ",".    f",".    f"," gggg "], 
+        4: [" .... ","b    c","b    c"," dddd ",".    f",".    f"," .... "], 
+        5: [" aaaa ","b    .","b    ."," dddd ",".    f",".    f"," gggg "], 
+        6: [" aaaa ","b    .","b    ."," dddd ","e    f","e    f"," gggg "], 
+        7: [" aaaa ",".    c",".    c"," .... ",".    f",".    f"," .... "], 
+        8: [" aaaa ","b    c","b    c"," dddd ","e    f","e    f"," gggg "], 
+        9: [" aaaa ","b    c","b    c"," dddd ",".    f",".    f"," gggg "]}
+
+    # convert Int to String to address individual digits
+    numberStr = str(numberInt)
+    outputListOfStrings = ["","","","","","",""]
+
+    for char in numberStr:
+        for index in range(0,7):
+            outputListOfStrings[index] += digitsAsListsOfStrings[int(char)][index] + " "
+
+    logging.debug(f"{outputListOfStrings}")
+
+    outputString = ""
+    for line in outputListOfStrings:
+        outputString += line + "\n"
+
+    return outputString
 
 def processInput(inputList):
 
@@ -201,6 +247,11 @@ def main():
 
     if timing:
         logging.info(f"Execution took {endTime - startTime} seconds.")
+
+    # just for fun
+    if unitTesting:
+        print(print_digits(1234567890))
+    print(print_digits(answer))
 
 if __name__ == '__main__':
     main()
