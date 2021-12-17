@@ -3,7 +3,7 @@
 # https://adventofcode.com/2021/day/X
 
 
-import time, math, logging ,os
+import time, math, logging, os
 
 
 def readInput(inputTextFileName):
