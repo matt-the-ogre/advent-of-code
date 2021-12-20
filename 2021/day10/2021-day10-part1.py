@@ -18,33 +18,6 @@ def readInput(inputTextFileName):
     
     return(inputList)
 
-# def findChunk(stringParam):
-#     logging.debug(f"findChunk: {stringParam}")
-#     pairingDict = {
-#             '(': ')',
-#             '[': ']',
-#             '{': '}',
-#             '<': '>',
-#             ')': 0,
-#             ']': 0,
-#             '}': 0,
-#             '>': 0
-#         }
-#     # the chunk is the valid substring of the first character to the last matching pair character
-#     firstChar = stringParam[0]
-#     matchingPairChar = pairingDict[firstChar]
-#     matchingPosition = stringParam.rfind(matchingPairChar)
-#     if matchingPairChar != -1:
-#         # it's a valid chunk because we found a matching pair character
-#         chunkString = stringParam[0:matchingPosition]
-#     else:
-#         # no matching pair character, so no valid chunk
-#         chunkString = ''
-
-#     logging.debug(f"chunkString: {chunkString}")
-
-#     return(chunkString)
-
 def processInput(inputList):
 
     scoreDict = {

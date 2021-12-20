@@ -159,8 +159,10 @@ def processInput(inputList):
 def findMiddleScore(scoreList):
     # find the middle score in the scoreList
     assert len(scoreList) > 2, "scoreList too short"
-    scoreListSorted = sorted(scoreList)
-    middleScore = scoreListSorted[int(len(scoreListSorted)/2)]
+    # scoreListSorted = sorted(scoreList)
+    scoreList.sort() # note sorts values in place
+    # middleScore = scoreListSorted[int(len(scoreListSorted)/2)]
+    middleScore = scoreList[int(len(scoreList)/2)]
     logging.debug(f"middleScore: {middleScore}")
     return middleScore
 
