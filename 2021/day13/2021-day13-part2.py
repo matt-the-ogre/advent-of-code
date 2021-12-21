@@ -1,6 +1,6 @@
-# Advent of Code - 2021 - Day X
+# Advent of Code - 2021 - Day 13
 
-# https://adventofcode.com/2021/day/X
+# https://adventofcode.com/2021/day/13
 
 
 import time, math, logging, os, numpy
@@ -8,6 +8,7 @@ from operator import itemgetter
 from operator import add, sub
 
 from numpy.lib.function_base import diff
+from matplotlib import pyplot as plt
 
 def readInput(inputTextFileName):
     # global inputList
@@ -95,15 +96,8 @@ def processInput(dotArray, foldInstructionList):
             logging.debug(f"\nflipped\n{dotArray2Flipped}")
         else:
             assert False,  f"unknown dimension in instruction list: {instructionItem}"
-        # reshape the second, assumed smaller, array to be the same size as the first, assumed larger, array
-        biggerArrayShape = dotArray1.shape
-        smallerArrayShape = dotArray2.shape
-        # differenceShape = biggerArrayShape - smallerArrayShape
-        differenceShape = tuple(map(sub, biggerArrayShape, smallerArrayShape))
-        axisZeroPad = differenceShape[0]
-        axisOnePad = differenceShape[1]
+        # arrays are always the same shape because the fold happens in the middle of the paper
         # https://stackoverflow.com/questions/9251635/python-resize-an-existing-array-and-fill-with-zeros
-        dotArray2Flipped = numpy.pad(dotArray2Flipped, ((0,axisZeroPad), (0,axisOnePad)) )
         dotArray = dotArray1 | dotArray2Flipped
         logging.debug(f"\n{dotArray}")
 
@@ -149,6 +143,11 @@ def main():
     else:
         # print the answer here
         print(numpy.transpose(answer))
+        plt.clf() # clear the plot
+        plt.gray()
+        plt.imshow(numpy.transpose(answer).squeeze())
+        plt.title(f"Answer")
+        plt.savefig(f"{filepath}\\answer.png")
 
     # this answer for my input is LGHEGUEJ
 

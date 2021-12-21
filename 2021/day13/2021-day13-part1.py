@@ -1,6 +1,6 @@
-# Advent of Code - 2021 - Day X
+# Advent of Code - 2021 - Day 13
 
-# https://adventofcode.com/2021/day/X
+# https://adventofcode.com/2021/day/13
 
 
 import time, math, logging, os, numpy
@@ -100,15 +100,6 @@ def processInput(dotArray, foldInstructionList):
         logging.debug(f"\nflipped\n{dotArray2Flipped}")
     else:
         assert False,  f"unknown dimension in instruction list: {instructionItem}"
-    # reshape the second, assumed smaller, array to be the same size as the first, assumed larger, array
-    biggerArrayShape = dotArray1.shape
-    smallerArrayShape = dotArray2.shape
-    # differenceShape = biggerArrayShape - smallerArrayShape
-    differenceShape = tuple(map(sub, biggerArrayShape, smallerArrayShape))
-    axisZeroPad = differenceShape[0]
-    axisOnePad = differenceShape[1]
-    # https://stackoverflow.com/questions/9251635/python-resize-an-existing-array-and-fill-with-zeros
-    dotArray2Flipped = numpy.pad(dotArray2Flipped, ((0,axisZeroPad), (0,axisOnePad)) )
     dotArray = dotArray1 | dotArray2Flipped
     logging.debug(f"\n{dotArray}")
 
@@ -118,8 +109,8 @@ def processInput(dotArray, foldInstructionList):
 def main():
     startTime = time.perf_counter() # time in seconds (float)
 
-    level = logging.DEBUG
-    # level = logging.INFO
+    # level = logging.DEBUG
+    level = logging.INFO
     # level = logging.ERROR
     fmt = '[%(levelname)s] %(asctime)s - %(message)s'
     logging.basicConfig(level=level, format=fmt)
