@@ -2,6 +2,8 @@
 
 # https://adventofcode.com/2021/day/11
 
+# References
+# https://stackoverflow.com/questions/339007/how-to-pad-zeroes-to-a-string
 
 import time, math, logging, os, numpy
 from operator import add
