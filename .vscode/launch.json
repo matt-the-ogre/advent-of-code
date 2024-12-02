@@ -17,6 +17,24 @@
             "name": "Release 01 (2024/01)",
             "program": "${workspaceFolder:advent-of-code}/2024/01/.build/release/01",
             "preLaunchTask": "swift: Build Release 01 (2024/01)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/01",
+            "name": "Debug 2024Day01 (2024/01)",
+            "program": "${workspaceFolder:advent-of-code}/2024/01/.build/debug/2024Day01",
+            "preLaunchTask": "swift: Build Debug 2024Day01 (2024/01)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/01",
+            "name": "Release 2024Day01 (2024/01)",
+            "program": "${workspaceFolder:advent-of-code}/2024/01/.build/release/2024Day01",
+            "preLaunchTask": "swift: Build Release 2024Day01 (2024/01)"
         }
     ]
 }
