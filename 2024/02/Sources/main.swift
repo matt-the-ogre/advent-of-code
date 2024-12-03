@@ -22,7 +22,7 @@ func readInputFile(testMode: Bool) -> String {
     }
 }
 
-func convertInputToArrayOfArrays(input: String) -> [[Int]] {
+func convertInputToReportArray(input: String) -> [[Int]] {
     // Split the input into lines
     let lines = input.split(separator: "\n")
     
@@ -34,16 +34,22 @@ func convertInputToArrayOfArrays(input: String) -> [[Int]] {
     return arrayOfArrays
 }
 
-func checkIfIncreasingOrDecreasing(_ level: [Int]) -> Bool {
-    guard level.count > 1 else { return true }
+func isReportSafe(_ report: [Int]) -> Bool {
+    let isMonotonic = checkIfIncreasingOrDecreasing(report)
+    let hasValidDifference = checkMinimumAbsoluteDifference(report)
+    return isMonotonic && hasValidDifference
+}
+
+func checkIfIncreasingOrDecreasing(_ report: [Int]) -> Bool {
+    guard report.count > 1 else { return true }
     
     var isIncreasing = true
     var isDecreasing = true
     
-    for i in 1..<level.count {
-        if level[i] > level[i - 1] {
+    for i in 1..<report.count {
+        if report[i] > report[i - 1] {
             isDecreasing = false
-        } else if level[i] < level[i - 1] {
+        } else if report[i] < report[i - 1] {
             isIncreasing = false
         }
     }
@@ -51,14 +57,14 @@ func checkIfIncreasingOrDecreasing(_ level: [Int]) -> Bool {
     return isIncreasing || isDecreasing
 }
 
-func checkMinimumAbsoluteDifference(_ level: [Int]) -> Bool {
-    guard level.count > 1 else { return true }
+func checkMinimumAbsoluteDifference(_ report: [Int]) -> Bool {
+    guard report.count > 1 else { return true }
     
     var minDifference = Int.max
     var maxDifference = Int.min
   
-    for i in 1..<level.count {
-        let difference = abs(level[i] - level[i - 1])
+    for i in 1..<report.count {
+        let difference = abs(report[i] - report[i - 1])
         if difference < minDifference {
             minDifference = difference
         }
@@ -70,12 +76,32 @@ func checkMinimumAbsoluteDifference(_ level: [Int]) -> Bool {
     return minDifference >= 1 && maxDifference <= 3
 }
 
-func createSafeArray(from inputArray: [[Int]]) -> [Bool] {
-    return inputArray.map { level in
-        let isMonotonic = checkIfIncreasingOrDecreasing(level)
-        let hasValidDifference = checkMinimumAbsoluteDifference(level)
-        return isMonotonic && hasValidDifference
+func createSafeArray(from reportArray: [[Int]]) -> [Bool] {
+    return reportArray.map { report in
+        isReportSafe(report)
     }
+}
+
+func doubleCheckUnsafeReports(reportArray: [[Int]], safeArray: [Bool]) -> [Bool] {
+    var updatedSafeArray = safeArray
+    for (index, isSafe) in safeArray.enumerated() {
+        if !isSafe {
+            updatedSafeArray[index] = performAdditionalCheck(on: reportArray[index])
+        }
+    }
+    return updatedSafeArray
+}
+
+func performAdditionalCheck(on report: [Int]) -> Bool {
+    // New condition: Check if removing one element would make the report safe
+    for i in 0..<report.count {
+        var modifiedReport = report
+        modifiedReport.remove(at: i)
+        if isReportSafe(modifiedReport) {
+            return true
+        }
+    }
+    return false
 }
 
 // Get command line arguments
@@ -83,10 +109,16 @@ let arguments = CommandLine.arguments
 let testMode = arguments.contains("test=true")
 
 let input = readInputFile(testMode: testMode)
-let inputArray: [[Int]] = convertInputToArrayOfArrays(input: input)
-let safeArray = createSafeArray(from: inputArray)
+let reportArray: [[Int]] = convertInputToReportArray(input: input)
+let safeArray = createSafeArray(from: reportArray)
+let finalSafeArray = doubleCheckUnsafeReports(reportArray: reportArray, safeArray: safeArray)
 
-print("Safe Array:")
+print("Safe Array from part one:")
 print(Array(safeArray[0..<min(10, safeArray.count)]))
-print("Count of True values in Safe Array:")
+print("Count of True values in Safe Array from part one:")
 print(safeArray.filter { $0 }.count)
+
+print("Final Safe Array after additional checks:")
+print(Array(finalSafeArray[0..<min(10, finalSafeArray.count)]))
+print("Count of True values in Final Safe Array:")
+print(finalSafeArray.filter { $0 }.count)
