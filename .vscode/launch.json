@@ -35,6 +35,42 @@
             "name": "Release 2024Day01 (2024/01)",
             "program": "${workspaceFolder:advent-of-code}/2024/01/.build/release/2024Day01",
             "preLaunchTask": "swift: Build Release 2024Day01 (2024/01)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/02",
+            "name": "Debug 02 (2024/02)",
+            "program": "${workspaceFolder:advent-of-code}/2024/02/.build/debug/02",
+            "preLaunchTask": "swift: Build Debug 02 (2024/02)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/02",
+            "name": "Release 02 (2024/02)",
+            "program": "${workspaceFolder:advent-of-code}/2024/02/.build/release/02",
+            "preLaunchTask": "swift: Build Release 02 (2024/02)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/02",
+            "name": "Debug 2024Day02 (2024/02)",
+            "program": "${workspaceFolder:advent-of-code}/2024/02/.build/debug/2024Day02",
+            "preLaunchTask": "swift: Build Debug 2024Day02 (2024/02)"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:advent-of-code}/2024/02",
+            "name": "Release 2024Day02 (2024/02)",
+            "program": "${workspaceFolder:advent-of-code}/2024/02/.build/release/2024Day02",
+            "preLaunchTask": "swift: Build Release 2024Day02 (2024/02)"
         }
     ]
 }

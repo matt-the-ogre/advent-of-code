@@ -7,34 +7,43 @@
 Great choice to use Swift for the Advent of Code! Here’s how you can get started with Swift in Visual Studio Code and your planned directory structure:
 
 ### 1. **Setting Up Swift in Visual Studio Code**
+
 - **Install Swift Toolchain**: Download and install Swift from [Swift.org](https://swift.org/download/) for your platform.
 - **Install VS Code Extensions**: Install the [CodeLLDB](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) extension for debugging and the [Swift Language Server](https://marketplace.visualstudio.com/items?itemName=sswg.swift-lang) extension for Swift language support.
 - **Verify Swift Installation**: Open a terminal in VS Code and run:
-  ```bash
-  swift --version
-  ```
-  This ensures Swift is installed and accessible in your PATH.
+- 
+```bash
+swift --version
+```
+
+This ensures Swift is installed and accessible in your PATH.
 
 ### 2. **Day 1 Directory Structure**
+
 For Day 1, navigate to your directory and set up a Swift project:
+
 ```bash
 mkdir -p ~/src/adventofcode/2024/01
 cd ~/src/adventofcode/2024/01
 swift package init --type executable
 ```
+
 This creates a Swift package with a basic executable structure.
 
 ### 3. **Writing Your Code**
+
 - Open the `main.swift` file located in `Sources/01/main.swift`.
 - Write your solution for Day 1 here.
 
 ### 4. **Running Your Code**
+
 From the terminal in your project directory:
 ```bash
 swift run
 ```
 
 ### 5. **Debugging in VS Code**
+
 - Open the `01` directory in VS Code.
 - Create a `launch.json` in the `.vscode` directory for debugging:
   ```json
